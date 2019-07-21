@@ -21,6 +21,11 @@ io.on('connection', function(socket){
     console.log("el nodo con IP: " + socket.handshake.address + " se ha connectado...");
 
     socket.emit("messages", messages);
+    socket.on('add-message', function(data){
+        messages.push(data);
+
+        io.sockets.emit('messages', messages);
+    })
 });
 
 server.listen(6677, function(){
